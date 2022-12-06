@@ -8,11 +8,10 @@ import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
-
 public class QuickCalcGUI extends javax.swing.JFrame {
 
     QuickCalc quickCalc = new QuickCalc();
-    
+
     class BackspaceAction extends AbstractAction {
 
         javax.swing.JLabel calculationLabel;
@@ -62,8 +61,9 @@ public class QuickCalcGUI extends javax.swing.JFrame {
         }
 
         public void actionPerformed(ActionEvent e) {
-            calculationLabel.setText(calculationLabel.getText() + operator);
-
+            if (calculationLabel.getText().length() < 40) {
+                calculationLabel.setText(calculationLabel.getText() + operator);
+            }
         }
     }
 
@@ -76,7 +76,7 @@ public class QuickCalcGUI extends javax.swing.JFrame {
         }
 
     }
-    
+
     class MinusAction extends OperatorAction {
 
         javax.swing.JLabel calculationLabel;
@@ -86,7 +86,7 @@ public class QuickCalcGUI extends javax.swing.JFrame {
         }
 
     }
-    
+
     class TimesAction extends OperatorAction {
 
         javax.swing.JLabel calculationLabel;
@@ -96,7 +96,7 @@ public class QuickCalcGUI extends javax.swing.JFrame {
         }
 
     }
-    
+
     class DivideAction extends OperatorAction {
 
         javax.swing.JLabel calculationLabel;
@@ -106,34 +106,34 @@ public class QuickCalcGUI extends javax.swing.JFrame {
         }
 
     }
-    
+
     class OpParenthesisAction extends OperatorAction {
-        
+
         javax.swing.JLabel calculationLabel;
-        
+
         OpParenthesisAction(javax.swing.JLabel calculationLabel) {
             super(calculationLabel, "(");
         }
     }
-    
+
     class ClParenthesisAction extends OperatorAction {
-        
+
         javax.swing.JLabel calculationLabel;
-        
+
         ClParenthesisAction(javax.swing.JLabel calculationLabel) {
             super(calculationLabel, ")");
         }
     }
-    
+
     class EvaluateAction extends AbstractAction {
-        
+
         javax.swing.JLabel calculationLabel, ansLabel;
-        
+
         EvaluateAction(javax.swing.JLabel calculationLabel, javax.swing.JLabel ansLabel) {
             this.calculationLabel = calculationLabel;
             this.ansLabel = ansLabel;
         }
-        
+
         public void actionPerformed(ActionEvent e) {
             try {
                 ansLabel.setText("= " + Double.toString(
@@ -144,11 +144,11 @@ public class QuickCalcGUI extends javax.swing.JFrame {
             }
         }
     }
-    
+
     class NumberAction extends OperatorAction {
-        
+
         javax.swing.JLabel calculationLabel;
-        
+
         NumberAction(javax.swing.JLabel calculationLabel, String number) {
             super(calculationLabel, number);
         }
@@ -162,7 +162,7 @@ public class QuickCalcGUI extends javax.swing.JFrame {
         Action backspaceAction, clearAction, plusAction, minusAction, timesAction, divideAction, evaluateAction;
         Action oneAction, twoAction, threeAction, fourAction, fiveAction, sixAction, sevenAction, eightAction, nineAction, zeroAction;
         Action opParenthesisAction, clParenthesisAction;
-        
+
         backspaceAction = new BackspaceAction(calculationLabel);
         clearAction = new ClearAction(ansLabel, calculationLabel);
         plusAction = new PlusAction(calculationLabel);
@@ -172,7 +172,7 @@ public class QuickCalcGUI extends javax.swing.JFrame {
         opParenthesisAction = new OpParenthesisAction(calculationLabel);
         clParenthesisAction = new ClParenthesisAction(calculationLabel);
         evaluateAction = new EvaluateAction(calculationLabel, ansLabel);
-        
+
         oneAction = new NumberAction(calculationLabel, "1");
         twoAction = new NumberAction(calculationLabel, "2");
         threeAction = new NumberAction(calculationLabel, "3");
@@ -183,7 +183,6 @@ public class QuickCalcGUI extends javax.swing.JFrame {
         eightAction = new NumberAction(calculationLabel, "8");
         nineAction = new NumberAction(calculationLabel, "9");
         zeroAction = new NumberAction(calculationLabel, "0");
-        
 
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
@@ -199,82 +198,85 @@ public class QuickCalcGUI extends javax.swing.JFrame {
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('+'), "doPlus");
         calculationLabel.getActionMap().put("doPlus", plusAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('-'), "doMinus");
         calculationLabel.getActionMap().put("doMinus", minusAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('*'), "doTimes");
         calculationLabel.getActionMap().put("doTimes", timesAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('/'), "doDivide");
         calculationLabel.getActionMap().put("doDivide", divideAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke(')'), "doClParen");
         calculationLabel.getActionMap().put("doClParen", clParenthesisAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('('), "doOpParen");
         calculationLabel.getActionMap().put("doOpParen", opParenthesisAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('='), "doEvaluate");
+        calculationLabel.getInputMap(
+                JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                        KeyStroke.getKeyStroke("ENTER"), "doEvaluate");
         calculationLabel.getActionMap().put("doEvaluate", evaluateAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('1'), "doOne");
         calculationLabel.getActionMap().put("doOne", oneAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('2'), "doTwo");
         calculationLabel.getActionMap().put("doTwo", twoAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('3'), "doThree");
         calculationLabel.getActionMap().put("doThree", threeAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('4'), "doFour");
         calculationLabel.getActionMap().put("doFour", fourAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('5'), "doFive");
         calculationLabel.getActionMap().put("doFive", fiveAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('6'), "doSix");
         calculationLabel.getActionMap().put("doSix", sixAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('7'), "doSeven");
         calculationLabel.getActionMap().put("doSeven", sevenAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('8'), "doEight");
         calculationLabel.getActionMap().put("doEight", eightAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('9'), "doNine");
         calculationLabel.getActionMap().put("doNine", nineAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('0'), "doZero");
