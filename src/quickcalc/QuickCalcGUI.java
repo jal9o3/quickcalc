@@ -292,6 +292,8 @@ public class QuickCalcGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        helpDialog = new javax.swing.JDialog();
+        helpTextArea = new javax.swing.JTextArea();
         displayPanel = new javax.swing.JPanel();
         calculationLabel = new javax.swing.JLabel();
         ansLabel = new javax.swing.JLabel();
@@ -304,6 +306,31 @@ public class QuickCalcGUI extends javax.swing.JFrame {
         logButton = new javax.swing.JButton();
         sysButton = new javax.swing.JButton();
         helpButton = new javax.swing.JButton();
+
+        helpTextArea.setColumns(20);
+        helpTextArea.setRows(5);
+        helpTextArea.setText("Help:\n\nEnter : evaluate current expression\nBackspace : remove previous key\nCTRL+Backspace : clear all");
+
+        javax.swing.GroupLayout helpDialogLayout = new javax.swing.GroupLayout(helpDialog.getContentPane());
+        helpDialog.getContentPane().setLayout(helpDialogLayout);
+        helpDialogLayout.setHorizontalGroup(
+            helpDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 244, Short.MAX_VALUE)
+            .addGroup(helpDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, helpDialogLayout.createSequentialGroup()
+                    .addContainerGap(25, Short.MAX_VALUE)
+                    .addComponent(helpTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(17, Short.MAX_VALUE)))
+        );
+        helpDialogLayout.setVerticalGroup(
+            helpDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 135, Short.MAX_VALUE)
+            .addGroup(helpDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, helpDialogLayout.createSequentialGroup()
+                    .addContainerGap(26, Short.MAX_VALUE)
+                    .addComponent(helpTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(25, Short.MAX_VALUE)))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -456,6 +483,7 @@ public class QuickCalcGUI extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void sysButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysButtonActionPerformed
@@ -463,7 +491,11 @@ public class QuickCalcGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_sysButtonActionPerformed
 
     private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
-        // TODO add your handling code here:
+        helpTextArea.setEditable(false);
+        helpDialog.setLocationRelativeTo(null);
+        helpDialog.pack();
+        helpDialog.setVisible(true);
+
     }//GEN-LAST:event_helpButtonActionPerformed
 
     private void sqrtButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sqrtButtonActionPerformed
@@ -530,6 +562,8 @@ public class QuickCalcGUI extends javax.swing.JFrame {
     private javax.swing.JButton cosButton;
     private javax.swing.JPanel displayPanel;
     private javax.swing.JButton helpButton;
+    private javax.swing.JDialog helpDialog;
+    private javax.swing.JTextArea helpTextArea;
     private javax.swing.JButton logButton;
     private javax.swing.JButton sinButton;
     private javax.swing.JButton sqrtButton;
