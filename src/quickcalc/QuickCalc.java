@@ -10,6 +10,15 @@ public class QuickCalc extends Calculator {
     public double calculate(String expression) throws ScriptException {
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
-        return (double)(Integer)engine.eval(expression);
+        Object result = engine.eval(expression);
+        if (result instanceof Double) {
+            return (double)(Double)result;
+        }
+        else if (result instanceof Integer) {
+            return (double)(Integer)result;
+        }
+        else {
+            return (double)result;
+        }
     }
 }
