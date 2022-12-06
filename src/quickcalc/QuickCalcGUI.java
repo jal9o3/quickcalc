@@ -11,7 +11,7 @@ import javax.swing.KeyStroke;
 
 public class QuickCalcGUI extends javax.swing.JFrame {
 
-    Calculator quickCalc = new QuickCalc();
+    QuickCalc quickCalc = new QuickCalc();
     
     class BackspaceAction extends AbstractAction {
 
@@ -359,6 +359,11 @@ public class QuickCalcGUI extends javax.swing.JFrame {
         });
 
         ansButton.setText("Ans");
+        ansButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ansButtonActionPerformed(evt);
+            }
+        });
 
         logButton.setText("log");
         logButton.addActionListener(new java.awt.event.ActionListener() {
@@ -478,6 +483,10 @@ public class QuickCalcGUI extends javax.swing.JFrame {
     private void logButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logButtonActionPerformed
         calculationLabel.setText(calculationLabel.getText() + "Math.log(");
     }//GEN-LAST:event_logButtonActionPerformed
+
+    private void ansButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ansButtonActionPerformed
+        calculationLabel.setText(calculationLabel.getText() + Double.toString(quickCalc.getAns()));
+    }//GEN-LAST:event_ansButtonActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
