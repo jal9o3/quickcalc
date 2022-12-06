@@ -1,62 +1,129 @@
 package quickcalc;
 
 import java.awt.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
+
 public class QuickCalcGUI extends javax.swing.JFrame {
+
+    Calculator quickCalc = new QuickCalc();
     
     class BackspaceAction extends AbstractAction {
-        
+
         javax.swing.JLabel calculationLabel;
-        
+
         BackspaceAction(javax.swing.JLabel calculationLabel) {
             this.calculationLabel = calculationLabel;
-            
+
         }
-        
+
         public void actionPerformed(ActionEvent e) {
             String reducedText;
-            
+
             if (calculationLabel.getText().length() > 0) {
                 reducedText = calculationLabel.getText().substring(
                         0, calculationLabel.getText().length() - 1);
                 calculationLabel.setText(reducedText);
             }
-            
+
         }
     }
-    
+
     class ClearAction extends AbstractAction {
 
         javax.swing.JLabel ansLabel, calculationLabel;
-        
+
         ClearAction(javax.swing.JLabel ansLabel, javax.swing.JLabel calculationLabel) {
             this.ansLabel = ansLabel;
             this.calculationLabel = calculationLabel;
         }
-        
+
         public void actionPerformed(ActionEvent e) {
             ansLabel.setText("");
             calculationLabel.setText("");
         }
-        
+
+    }
+
+    abstract class OperatorAction extends AbstractAction {
+
+        javax.swing.JLabel calculationLabel;
+        String operator;
+
+        OperatorAction(javax.swing.JLabel calculationLabel, String operator) {
+            this.calculationLabel = calculationLabel;
+            this.operator = operator;
+
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            calculationLabel.setText(calculationLabel.getText() + operator);
+
+        }
+    }
+
+    class PlusAction extends OperatorAction {
+
+        javax.swing.JLabel calculationLabel;
+
+        PlusAction(javax.swing.JLabel calculationLabel) {
+            super(calculationLabel, "+");
+        }
+
     }
     
-    class PlusAction extends AbstractAction {
-        
+    class MinusAction extends OperatorAction {
+
         javax.swing.JLabel calculationLabel;
+
+        MinusAction(javax.swing.JLabel calculationLabel) {
+            super(calculationLabel, "-");
+        }
+
+    }
+    
+    class TimesAction extends OperatorAction {
+
+        javax.swing.JLabel calculationLabel;
+
+        TimesAction(javax.swing.JLabel calculationLabel) {
+            super(calculationLabel, "*");
+        }
+
+    }
+    
+    class DivideAction extends OperatorAction {
+
+        javax.swing.JLabel calculationLabel;
+
+        DivideAction(javax.swing.JLabel calculationLabel) {
+            super(calculationLabel, "/");
+        }
+
+    }
+    
+    class EvaluateAction extends AbstractAction {
         
-        PlusAction(javax.swing.JLabel calculationLabel) {
+        javax.swing.JLabel calculationLabel, ansLabel;
+        
+        EvaluateAction(javax.swing.JLabel calculationLabel, javax.swing.JLabel ansLabel) {
             this.calculationLabel = calculationLabel;
-            
+            this.ansLabel = ansLabel;
         }
         
         public void actionPerformed(ActionEvent e) {
-            calculationLabel.setText(calculationLabel.getText() + "+");
-            
+            try {
+                ansLabel.setText("= " + Double.toString(
+                        quickCalc.calculate(calculationLabel.getText())));
+            } catch (Exception ex) {
+                Logger.getLogger(QuickCalcGUI.class.getName()).log(Level.SEVERE, null, ex);
+                ansLabel.setText("ERROR");
+            }
         }
     }
 
@@ -65,24 +132,49 @@ public class QuickCalcGUI extends javax.swing.JFrame {
      */
     public QuickCalcGUI() {
         initComponents();
-        Action backspaceAction = new BackspaceAction(calculationLabel);
-        Action clearAction = new ClearAction(ansLabel, calculationLabel);
-        Action plusAction = new PlusAction(calculationLabel);
-        
+        Action backspaceAction, clearAction, plusAction, minusAction, timesAction, divideAction, evaluateAction;
+        backspaceAction = new BackspaceAction(calculationLabel);
+        clearAction = new ClearAction(ansLabel, calculationLabel);
+        plusAction = new PlusAction(calculationLabel);
+        minusAction = new MinusAction(calculationLabel);
+        timesAction = new TimesAction(calculationLabel);
+        divideAction = new DivideAction(calculationLabel);
+        evaluateAction = new EvaluateAction(calculationLabel, ansLabel);
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke("BACK_SPACE"), "doBackspace");
         calculationLabel.getActionMap().put("doBackspace", backspaceAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke("ctrl BACK_SPACE"), "doClear");
         calculationLabel.getActionMap().put("doClear", clearAction);
-        
+
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('+'), "doPlus");
         calculationLabel.getActionMap().put("doPlus", plusAction);
+        
+        calculationLabel.getInputMap(
+                JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                        KeyStroke.getKeyStroke('-'), "doMinus");
+        calculationLabel.getActionMap().put("doMinus", minusAction);
+        
+        calculationLabel.getInputMap(
+                JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                        KeyStroke.getKeyStroke('*'), "doTimes");
+        calculationLabel.getActionMap().put("doTimes", timesAction);
+        
+        calculationLabel.getInputMap(
+                JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                        KeyStroke.getKeyStroke('/'), "doDivide");
+        calculationLabel.getActionMap().put("doDivide", divideAction);
+        
+        calculationLabel.getInputMap(
+                JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                        KeyStroke.getKeyStroke('='), "doEvaluate");
+        calculationLabel.getActionMap().put("doEvaluate", evaluateAction);
     }
 
     /**
@@ -247,7 +339,7 @@ public class QuickCalcGUI extends javax.swing.JFrame {
     private void sqrtButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sqrtButtonActionPerformed
         calculationLabel.setText(calculationLabel.getText() + "sqrt(");
     }//GEN-LAST:event_sqrtButtonActionPerformed
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
