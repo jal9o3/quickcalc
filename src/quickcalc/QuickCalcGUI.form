@@ -141,7 +141,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="logButton" linkSize="1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="sysButton" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="powButton" linkSize="1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="helpButton" linkSize="1" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -173,7 +173,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="ansButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="logButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="sysButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="powButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="helpButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -230,12 +230,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="sysButton">
+        <Component class="javax.swing.JButton" name="powButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="sys"/>
+            <Property name="text" type="java.lang.String" value="pow"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sysButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="powButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="helpButton">

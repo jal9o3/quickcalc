@@ -124,6 +124,15 @@ public class QuickCalcGUI extends javax.swing.JFrame {
             super(calculationLabel, ")");
         }
     }
+    
+    class CommaAction extends OperatorAction {
+
+        javax.swing.JLabel calculationLabel;
+
+        CommaAction(javax.swing.JLabel calculationLabel) {
+            super(calculationLabel, ",");
+        }
+    }
 
     class EvaluateAction extends AbstractAction {
 
@@ -161,7 +170,7 @@ public class QuickCalcGUI extends javax.swing.JFrame {
         initComponents();
         Action backspaceAction, clearAction, plusAction, minusAction, timesAction, divideAction, evaluateAction;
         Action oneAction, twoAction, threeAction, fourAction, fiveAction, sixAction, sevenAction, eightAction, nineAction, zeroAction;
-        Action opParenthesisAction, clParenthesisAction;
+        Action factorialAction, opParenthesisAction, clParenthesisAction, commaAction;
 
         backspaceAction = new BackspaceAction(calculationLabel);
         clearAction = new ClearAction(ansLabel, calculationLabel);
@@ -171,6 +180,7 @@ public class QuickCalcGUI extends javax.swing.JFrame {
         divideAction = new DivideAction(calculationLabel);
         opParenthesisAction = new OpParenthesisAction(calculationLabel);
         clParenthesisAction = new ClParenthesisAction(calculationLabel);
+        commaAction = new CommaAction(calculationLabel);
         evaluateAction = new EvaluateAction(calculationLabel, ansLabel);
 
         oneAction = new NumberAction(calculationLabel, "1");
@@ -223,6 +233,11 @@ public class QuickCalcGUI extends javax.swing.JFrame {
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                         KeyStroke.getKeyStroke('('), "doOpParen");
         calculationLabel.getActionMap().put("doOpParen", opParenthesisAction);
+        
+        calculationLabel.getInputMap(
+                JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                        KeyStroke.getKeyStroke(','), "doComma");
+        calculationLabel.getActionMap().put("doComma", commaAction);
 
         calculationLabel.getInputMap(
                 JComponent.WHEN_IN_FOCUSED_WINDOW).put(
@@ -304,7 +319,7 @@ public class QuickCalcGUI extends javax.swing.JFrame {
         tanButton = new javax.swing.JButton();
         ansButton = new javax.swing.JButton();
         logButton = new javax.swing.JButton();
-        sysButton = new javax.swing.JButton();
+        powButton = new javax.swing.JButton();
         helpButton = new javax.swing.JButton();
 
         helpTextArea.setColumns(20);
@@ -401,10 +416,10 @@ public class QuickCalcGUI extends javax.swing.JFrame {
             }
         });
 
-        sysButton.setText("sys");
-        sysButton.addActionListener(new java.awt.event.ActionListener() {
+        powButton.setText("pow");
+        powButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sysButtonActionPerformed(evt);
+                powButtonActionPerformed(evt);
             }
         });
 
@@ -427,7 +442,7 @@ public class QuickCalcGUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(logButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sysButton)
+                        .addComponent(powButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(helpButton))
                     .addGroup(componentPanelLayout.createSequentialGroup()
@@ -441,7 +456,7 @@ public class QuickCalcGUI extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        componentPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {ansButton, cosButton, helpButton, logButton, sinButton, sqrtButton, sysButton, tanButton});
+        componentPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {ansButton, cosButton, helpButton, logButton, powButton, sinButton, sqrtButton, tanButton});
 
         componentPanelLayout.setVerticalGroup(
             componentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -456,7 +471,7 @@ public class QuickCalcGUI extends javax.swing.JFrame {
                 .addGroup(componentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ansButton)
                     .addComponent(logButton)
-                    .addComponent(sysButton)
+                    .addComponent(powButton)
                     .addComponent(helpButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -486,9 +501,9 @@ public class QuickCalcGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sysButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sysButtonActionPerformed
+    private void powButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powButtonActionPerformed
+        calculationLabel.setText(calculationLabel.getText() + "Math.pow(");
+    }//GEN-LAST:event_powButtonActionPerformed
 
     private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
         helpTextArea.setEditable(false);
@@ -565,9 +580,9 @@ public class QuickCalcGUI extends javax.swing.JFrame {
     private javax.swing.JDialog helpDialog;
     private javax.swing.JTextArea helpTextArea;
     private javax.swing.JButton logButton;
+    private javax.swing.JButton powButton;
     private javax.swing.JButton sinButton;
     private javax.swing.JButton sqrtButton;
-    private javax.swing.JButton sysButton;
     private javax.swing.JButton tanButton;
     // End of variables declaration//GEN-END:variables
 
